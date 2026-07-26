@@ -1,0 +1,72 @@
+plugins {
+	id 'fabric-loom' version '1.6-SNAPSHOT'
+	id 'maven-publish'
+}
+
+version = project.mod_version
+group = project.maven_group
+
+base {
+	archivesName = project.archives_base_name
+}
+
+repositories {
+	// Fabric Maven
+	maven {
+		name = "Fabric"
+		url = "https://maven.fabricmc.net/"
+	}
+	// Modrinth Maven
+	maven {
+		name = "Modrinth"
+		url = "https://api.modrinth.com/maven"
+		content {
+			includeGroup "maven.modrinth"
+		}
+	}
+	// Mod Menu и другие моды
+	maven {
+		name = "TerraformersMC"
+		url = "https://maven.terraformersmc.com/"
+	}
+	// Maven Central
+	mavenCentral()
+}
+
+dependencies {
+	// Основные зависимости Minecraft
+	minecraft "com.mojang:minecraft:${project.minecraft_version}"
+	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+
+	// Маппинги - используем официальные маппинги Mojang
+	mappings "net.fabricmc:yarn:${project.minecraft_version}+build.10:v2"
+	// Альтернатива (раскомментируйте, если нужны официальные маппинги Mojang):
+	// mappings loom.officialMojangMappings()
+
+	// Fabric API
+	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+}
+
+processResources {
+	inputs.property "version", project.version
+	inputs.property "mod_id", project.mod_id
+	inputs.property "mod_name", project.mod_name
+	inputs.property "mod_description", project.mod_description
+
+	filesMatching("fabric.mod.json") {
+		expand "version": project.version,
+				"mod_id": project.mod_id,
+				"mod_name": project.mod_name,
+				"mod_description": project.mod_description
+	}
+}
+
+tasks.withType(JavaCompile).configureEach {
+	it.options.release = 17
+}
+
+java {
+	withSourcesJar()
+	sourceCompatibility = JavaVersion.VERSION_17
+	targetCompatibility = JavaVersion.VERSION_17
+}
