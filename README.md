@@ -1,54 +1,53 @@
 # Cockroach
 
-> ⚠️ **Статус: бета, в активной разработке.** Возможны баги и изменения поведения.
+[![Build](https://github.com/MrBuggI/CockMod/actions/workflows/build.yml/badge.svg)](https://github.com/MrBuggI/CockMod/actions/workflows/build.yml)
+[![Release](https://img.shields.io/github/v/release/MrBuggI/CockMod)](https://github.com/MrBuggI/CockMod/releases/latest)
+![Minecraft](https://img.shields.io/badge/Minecraft-1.20.1-62B47A)
+![Loader](https://img.shields.io/badge/loader-Fabric-DBD0B4)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 
 Мод для Minecraft, добавляющий таракана, который живёт прямо в интерфейсе игры.
 
-## Что он делает
+> **English:** a client-side Fabric 1.20.1 mod: a cockroach runs around inside inventory and container screens, flees from the mouse cursor and hunts down diamonds to eat them. In multiplayer the diamond removal is confirmed by the server. Localized in English, Russian and Ukrainian.
 
-Таракан — чисто **клиентское** визуальное существо. Он:
+## Возможности
 
-- бегает внутри окон инвентаря, сундуков и других контейнеров (не выходит за пределы панели);
-- сам блуждает по экрану и **убегает от курсора** — поймать его мышкой нельзя;
-- если в открытом инвентаре есть **алмаз**, выслеживает его и съедает (в мультиплеере само удаление алмаза подтверждается на сервере).
+Таракан это **клиентское** визуальное существо. Он:
 
-Мод поддерживает локализацию: английский (`en_us`), русский (`ru_ru`) и украинский (`uk_ua`).
+- бегает внутри окон инвентаря, сундуков и других контейнеров и не выходит за границы панели;
+- сам блуждает по экрану и **убегает от курсора**, поймать его мышкой нельзя;
+- если в открытом инвентаре есть **алмаз**, выслеживает его и съедает (в мультиплеере удаление алмаза подтверждается на сервере).
 
-## Технические данные
-
-| Параметр            | Значение                          |
-|---------------------|-----------------------------------|
-| Версия Minecraft    | 1.20.1                            |
-| Загрузчик           | Fabric (Fabric Loader 0.18.4)     |
-| Fabric API          | 0.88.1+1.20.1                     |
-| Требуемая Java      | 17+                               |
-| Версия мода         | 1.0.0 (beta)                      |
-
-**Зависимости:** для работы мода нужен установленный [Fabric API](https://modrinth.com/mod/fabric-api).
-
-## Сборка
-
-Требуется установленный JDK 17 или новее (Gradle-демон в проекте настроен на JDK 21 — см. `org.gradle.java.home` в `gradle.properties`; при необходимости поправьте путь под свою систему).
-
-```bash
-./gradlew build
-```
-
-Готовый `.jar` появится в `build/libs/`.
-
-Другие полезные команды:
-
-```bash
-./gradlew runClient   # запустить клиент Minecraft с модом для теста
-./gradlew clean       # очистить сборку
-```
+Локализация: английский (`en_us`), русский (`ru_ru`) и украинский (`uk_ua`).
 
 ## Установка
 
 1. Установите [Fabric Loader](https://fabricmc.net/use/) для Minecraft 1.20.1.
-2. Положите [Fabric API](https://modrinth.com/mod/fabric-api) и собранный `.jar` этого мода в папку `mods/`.
-3. Запустите игру.
+2. Скачайте `.jar` из раздела [Releases](https://github.com/MrBuggI/CockMod/releases/latest).
+3. Положите его вместе с [Fabric API](https://modrinth.com/mod/fabric-api) в папку `mods/`.
+4. Запустите игру.
+
+## Технические данные
+
+| Параметр         | Значение                      |
+|------------------|-------------------------------|
+| Версия Minecraft | 1.20.1                        |
+| Загрузчик        | Fabric (Fabric Loader 0.18.4) |
+| Fabric API       | 0.88.1+1.20.1                 |
+| Java             | 17+                           |
+| Версия мода      | 1.0.0                         |
+
+## Сборка из исходников
+
+Нужен JDK 17 или новее.
+
+```bash
+./gradlew build       # готовый .jar появится в build/libs/
+./gradlew runClient   # запустить клиент Minecraft с модом
+```
+
+Каждый push проверяется сборкой в GitHub Actions, а при публикации тега `v*` собранный `.jar` автоматически прикладывается к релизу.
 
 ## Лицензия
 
-Проект распространяется под лицензией [MIT](LICENSE).
+[MIT](LICENSE).
