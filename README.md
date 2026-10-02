@@ -8,15 +8,18 @@
 
 Мод для Minecraft, добавляющий таракана, который живёт прямо в интерфейсе игры.
 
-> **English:** a client-side Fabric 1.20.1 mod: a cockroach runs around inside inventory and container screens, flees from the mouse cursor and hunts down diamonds to eat them. In multiplayer the diamond removal is confirmed by the server. Localized in English, Russian and Ukrainian.
+> **English:** a client-side Fabric 1.20.1 mod: a cockroach lives in the player inventory screen, visits containers that hold rotten flesh, flees from the mouse cursor and hunts down diamonds to eat them. The diamond is removed by the server, so the mod is needed on both sides. Localized in English, Russian and Ukrainian.
 
 ## Возможности
 
 Таракан это **клиентское** визуальное существо. Он:
 
-- бегает внутри окон инвентаря, сундуков и других контейнеров и не выходит за границы панели;
+- всегда живёт в окне инвентаря игрока (кроме креативного) и не выходит за границы панели;
+- приходит в сундук или другой контейнер, если там лежит **гнилая плоть**;
 - сам блуждает по экрану и **убегает от курсора**, поймать его мышкой нельзя;
-- если в открытом инвентаре есть **алмаз**, выслеживает его и съедает (в мультиплеере удаление алмаза подтверждается на сервере).
+- если в открытом окне есть **алмаз**, выслеживает его и съедает.
+
+Рисуется таракан только на клиенте, но алмаз удаляет сервер, поэтому мод должен стоять и на сервере. На сервере без мода таракан бегает, но алмазы не ест.
 
 Локализация: английский (`en_us`), русский (`ru_ru`) и украинский (`uk_ua`).
 
@@ -35,7 +38,21 @@
 | Загрузчик        | Fabric (Fabric Loader 0.18.4) |
 | Fabric API       | 0.88.1+1.20.1                 |
 | Java             | 17+                           |
-| Версия мода      | 1.0.0                         |
+| Версия мода      | 1.0.1                         |
+
+## Архитектура
+
+Пакет `io.github.mrbuggi.cockroach`. Один миксин-аксессор, один сетевой пакет.
+
+| Файл | Роль |
+|---|---|
+| `CockroachMod` | точка входа, регистрация серверного приёмника пакета |
+| `CockroachNetworking` | пакет `eat_diamond`: клиент называет слот, сервер проверяет его и убирает один алмаз |
+| `client/CockroachClient` | подписка на отрисовку экранов контейнеров, поиск ближайшего алмаза |
+| `client/Cockroach` | движение и отрисовка: блуждание, бегство от курсора, охота |
+| `mixin/client/HandledScreenAccessor` | доступ к положению и размеру панели экрана |
+
+Миксин здесь только аксессор: он читает четыре поля `HandledScreen` и не меняет код игры. Сервер не доверяет клиенту: номер слота проверяется на границы, а алмаз убирается, только если он действительно лежит в этом слоте открытого игроком окна.
 
 ## Сборка из исходников
 

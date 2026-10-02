@@ -5,7 +5,7 @@
 	"name": "${mod_name}",
 	"description": "${mod_description}",
 	"authors": [
-		"Buggi"
+		"MrBuggI"
 	],
 	"contact": {
 		"homepage": "https://github.com/MrBuggI/CockMod",
@@ -16,10 +16,10 @@
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"net.buggi.cockroach.CockroachMod"
+			"io.github.mrbuggi.cockroach.CockroachMod"
 		],
 		"client": [
-			"net.buggi.cockroach.client.CockroachClient"
+			"io.github.mrbuggi.cockroach.client.CockroachClient"
 		]
 	},
 	"mixins": [
